@@ -1,0 +1,90 @@
+{
+  "name": "eventmii-shared",
+  "version": "0.1.0",
+  "description": "Code shared between Eventmii apps: block documents, renderers and helpers.",
+  "author": "Eventmii",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./blocks": {
+      "import": {
+        "types": "./dist/blocks/index.d.ts",
+        "default": "./dist/blocks/index.js"
+      },
+      "require": {
+        "types": "./dist/blocks/index.d.cts",
+        "default": "./dist/blocks/index.cjs"
+      }
+    },
+    "./blocks/email-mjml": {
+      "import": {
+        "types": "./dist/blocks/email-mjml/index.d.ts",
+        "default": "./dist/blocks/email-mjml/index.js"
+      },
+      "require": {
+        "types": "./dist/blocks/email-mjml/index.d.cts",
+        "default": "./dist/blocks/email-mjml/index.cjs"
+      }
+    },
+    "./blocks/react": {
+      "import": {
+        "types": "./dist/blocks/react/index.d.ts",
+        "default": "./dist/blocks/react/index.js"
+      },
+      "require": {
+        "types": "./dist/blocks/react/index.d.cts",
+        "default": "./dist/blocks/react/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "blocks": [
+        "./dist/blocks/index.d.ts"
+      ],
+      "blocks/email-mjml": [
+        "./dist/blocks/email-mjml/index.d.ts"
+      ],
+      "blocks/react": [
+        "./dist/blocks/react/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepare": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "zod": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0",
+    "zod": "^4.6.7"
+  }
+}
