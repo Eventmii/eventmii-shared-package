@@ -8,6 +8,7 @@ import {
   columnWidths,
   EMAIL_BODY_TEXT_SIZE,
   headingFontSize,
+  headingFontWeight,
   imageCornerRadii,
   resolveBlockPadding,
   resolveButtonRadius,
@@ -306,11 +307,12 @@ function renderElement(block: BlockNode, ctx: RenderContext, width: number, nest
       const level = block.props.level;
       const color = block.props.color ?? theme.textColor;
       ctx.slots.push({ id: block.id, kind: 'rich', blockId: block.id, raw, textColor: color });
+      const headingFont = theme.headingFontFamily ?? theme.fontFamily;
       const style = [
         'margin: 0 !important',
-        `font-family: ${theme.headingFontFamily ?? theme.fontFamily} !important`,
+        `font-family: ${headingFont} !important`,
         `font-size: ${headingFontSize(level)}px !important`,
-        'font-weight: 700 !important',
+        `font-weight: ${headingFontWeight(headingFont)} !important`,
         'line-height: 1.2 !important',
         `color: ${color} !important`,
         `text-align: ${block.props.align}`,

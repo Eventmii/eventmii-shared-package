@@ -145,6 +145,19 @@ export function headingFontSize(level: HeadingLevel): number {
   return HEADING_SIZES[level] ?? HEADING_SIZES[2];
 }
 
+/** Fonts that exist in one weight only, in lower case. */
+const SINGLE_WEIGHT_FONTS = ['dm serif display'];
+
+/**
+ * Weight of a heading set in `fontFamily` (a CSS font stack): regular when its first font
+ * has no bold, bold otherwise. Asking a one-weight font for bold makes a mail program fake
+ * it, or shows the fallback font in bold.
+ */
+export function headingFontWeight(fontFamily: string | null | undefined): 400 | 700 {
+  const first = fontFamily?.split(',')[0]?.replace(/['"]/g, '').trim().toLowerCase();
+  return first && SINGLE_WEIGHT_FONTS.includes(first) ? 400 : 700;
+}
+
 /** Button corner rounding in px when neither the block nor the theme sets one. */
 export const DEFAULT_BUTTON_RADIUS = 6;
 

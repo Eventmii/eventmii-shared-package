@@ -4,12 +4,14 @@ import {
   createEmptyDocument,
   createLegacyDocument,
   DEFAULT_BUTTON_RADIUS,
+  headingFontWeight,
   insertBlock,
   isBlockedFileName,
   parseBlockProps,
   parseRoundingPx,
   readBlockText,
   resolveButtonRadius,
+  textKeyForBlock,
   type BlockDocument,
   type TextMap,
 } from '../index';
@@ -352,6 +354,25 @@ describe('buttons', () => {
     expect(parseRoundingPx('0.5rem')).toBe(null);
     expect(parseRoundingPx(null)).toBe(null);
     expect(resolveButtonRadius(null, null)).toBe(DEFAULT_BUTTON_RADIUS);
+  });
+
+  it('draws headings regular in a font that has no bold', () => {
+    expect(headingFontWeight("'DM Serif Display', Georgia, serif")).toBe(400);
+    expect(headingFontWeight('DM Serif Display')).toBe(400);
+    expect(headingFontWeight("Poppins, 'Segoe UI', sans-serif")).toBe(700);
+    expect(headingFontWeight("Georgia, 'DM Serif Display', serif")).toBe(700);
+    expect(headingFontWeight(null)).toBe(700);
+
+    const heading = createBlock('heading', 'email');
+    const document = insertBlock(createEmptyDocument('email'), heading, { parentId: 'root', region: 0, index: 0 });
+    const texts: TextMap = { [textKeyForBlock(OWNER, heading, 'html')]: { da: 'Velkommen' } };
+    const serif = buildEmailMjml({
+      document,
+      readText: (block, field) => readBlockText(texts, OWNER, block, field, 'da'),
+      theme: { ...theme, headingFontFamily: "'DM Serif Display', Georgia, serif" },
+    });
+    expect(serif.mjml).toContain('font-weight: 400 !important');
+    expect(build(document, texts).mjml).toContain('font-weight: 700 !important');
   });
 
   it('escapes plain links and drops unsafe schemes', () => {
