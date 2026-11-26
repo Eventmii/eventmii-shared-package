@@ -3,7 +3,7 @@ import type { Locale } from './types';
 /**
  * Programs and web pages a download link refuses. Everything else (documents, spreadsheets,
  * images, video, archives) is allowed. Keep in sync with `event_files_extension_allowed` in
- * eventmii-database (SQL/functions/storage/event_files_helpers.sql).
+ * eventmii-database (supabase/schemas/public/functions/event_files_extension_allowed.sql).
  */
 export const BLOCKED_FILE_EXTENSIONS: ReadonlySet<string> = new Set([
   'exe', 'msi', 'msp', 'bat', 'cmd', 'com', 'scr', 'pif', 'cpl', 'dll', 'sys', 'drv', 'ocx', 'msc', 'lnk', 'reg', 'inf',
